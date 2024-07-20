@@ -1,0 +1,16 @@
+{
+  "orderId": 1001,
+  "customerId": 1,
+  "items": [
+    {
+      "product": "lápis",
+      "quantity": 100,
+      "price": 1.1
+    },
+    {
+      "product": "caderno",
+      "quantity": 10,
+      "price": 1.0
+    }
+  ]
+}
