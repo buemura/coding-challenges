@@ -11,3 +11,11 @@ type Order struct {
 	CustomerID int     `json:"customerId"`
 	Items      []*Item `json:"items"`
 }
+
+type OrderTotalPriceOut struct {
+	TotalPrice float32 `json:"totalPrice"`
+}
+
+type OrdersQuantityOut struct {
+	Quantity int `json:"quantity"`
+}

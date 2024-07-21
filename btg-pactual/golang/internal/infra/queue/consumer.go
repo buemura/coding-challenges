@@ -2,11 +2,12 @@ package queue
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 
 	"github.com/buemura/btg-challenge/config"
-	"github.com/buemura/btg-challenge/modules/order"
-	"github.com/buemura/btg-challenge/shared"
+	"github.com/buemura/btg-challenge/internal/modules/order"
+	"github.com/buemura/btg-challenge/internal/shared"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
@@ -50,8 +51,6 @@ func StartConsume() {
 
 	go func() {
 		for d := range msgs {
-			log.Printf("Received a message: %s", d.Body)
-
 			switch d.RoutingKey {
 			case ORDER_CREATED_QUEUE:
 				var in *order.Order
@@ -66,6 +65,6 @@ func StartConsume() {
 		}
 	}()
 
-	log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
+	fmt.Println("RabbitMQ Consumer started...")
 	<-forever
 }

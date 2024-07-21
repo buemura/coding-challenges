@@ -10,8 +10,9 @@ import (
 	"time"
 
 	"github.com/buemura/btg-challenge/config"
-	"github.com/buemura/btg-challenge/infra/database"
-	"github.com/buemura/btg-challenge/infra/queue"
+	"github.com/buemura/btg-challenge/internal/infra/database"
+	"github.com/buemura/btg-challenge/internal/infra/queue"
+	"github.com/buemura/btg-challenge/internal/modules/order"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -19,17 +20,19 @@ import (
 func init() {
 	config.LoadEnv()
 	database.Connect()
-	queue.StartConsume()
+
 }
 
 func main() {
+	go queue.StartConsume()
+
 	e := echo.New()
 
 	e.Use(middleware.Recover())
 	e.Use(middleware.Secure())
+	order.SetupRoutes(e)
 
 	host := ":" + config.HTTP_PORT
-
 	go func() {
 		if err := e.Start(host); err != nil && http.ErrServerClosed != err {
 			panic(err)
