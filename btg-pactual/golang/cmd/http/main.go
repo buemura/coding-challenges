@@ -10,9 +10,9 @@ import (
 	"time"
 
 	"github.com/buemura/btg-challenge/config"
-	"github.com/buemura/btg-challenge/internal/infra/database"
-	"github.com/buemura/btg-challenge/internal/infra/queue"
+	"github.com/buemura/btg-challenge/internal/database"
 	"github.com/buemura/btg-challenge/internal/modules/order"
+	"github.com/buemura/btg-challenge/internal/queue"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -20,12 +20,9 @@ import (
 func init() {
 	config.LoadEnv()
 	database.Connect()
-
 }
 
 func main() {
-	go queue.StartConsume()
-
 	e := echo.New()
 
 	e.Use(middleware.Recover())
@@ -38,6 +35,7 @@ func main() {
 			panic(err)
 		}
 	}()
+	go queue.StartConsume()
 
 	stop := make(chan os.Signal, 1)
 	signal.Notify(stop, syscall.SIGTERM, os.Interrupt, syscall.SIGINT)

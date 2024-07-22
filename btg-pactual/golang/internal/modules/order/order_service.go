@@ -4,7 +4,7 @@ import (
 	"context"
 	"math"
 
-	"github.com/buemura/btg-challenge/internal/infra/database"
+	"github.com/buemura/btg-challenge/internal/database"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"

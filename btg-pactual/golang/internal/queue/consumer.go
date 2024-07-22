@@ -51,6 +51,8 @@ func StartConsume() {
 
 	go func() {
 		for d := range msgs {
+			log.Printf("Consumed messagem from queue: btg.order.created")
+
 			switch d.RoutingKey {
 			case ORDER_CREATED_QUEUE:
 				var in *order.OrderCreatedIn
@@ -65,6 +67,6 @@ func StartConsume() {
 		}
 	}()
 
-	fmt.Println("RabbitMQ Consumer started...")
+	fmt.Println("⇨ RabbitMQ Consumer started")
 	<-forever
 }

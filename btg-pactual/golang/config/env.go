@@ -14,9 +14,8 @@ var (
 
 func LoadEnv() {
 	viper.SetConfigFile(".env")
-	err := viper.ReadInConfig()
 
-	if err != nil {
+	if err := viper.ReadInConfig(); err != nil {
 		HTTP_PORT = os.Getenv("HTTP_PORT")
 		DATABASE_URL = os.Getenv("DATABASE_URL")
 		BROKER_URL = os.Getenv("BROKER_URL")
