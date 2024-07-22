@@ -53,7 +53,7 @@ func StartConsume() {
 		for d := range msgs {
 			switch d.RoutingKey {
 			case ORDER_CREATED_QUEUE:
-				var in *order.Order
+				var in *order.OrderCreatedIn
 				err := json.Unmarshal([]byte(d.Body), &in)
 				if err != nil {
 					log.Fatalf(err.Error())
